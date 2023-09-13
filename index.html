@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gavison Ipad Activity</title>
+    <link rel="stylesheet" href="./css/app.css">
+</head>
+<body>
+    <div class="screen screen-1">
+        <div class="group1">
+            <img src="./assets/oldbottlepack.png" alt="stand"  id="droptarget"  class="bottle">
+            <img src="./assets/Podium.png" alt="stand" class="stand">
+        </div>
+        <div class="group2">
+            <img src="./assets/Text1.png" alt="" class="text1">
+            <img src="./assets/Text2.png" alt="" class="text2">
+        </div>
+        <div  >
+             <img src="./assets/circle1.png" alt="" class="draggable  circle1">
+            <img src="./assets/circle2.png" alt=""  class="draggable circle2">
+            <img src="./assets/circle3.png" alt=""  class="draggable circle3">
+            <img src="./assets/circle4.png" alt=""  class="draggable  circle4">
+            <img src="./assets/circle5.png" alt=""  class="draggable circle5">  
+        </div>  
+    </div>
+
+    <div class="screen screen-2">
+        <video id="video" width="1280">
+            <source src="./assets/video.mp4" type="video/mp4">
+            Your browser does not support HTML5 video.
+        </video>
+    </div>
+
+    <script src="./js/jquery1_7_1.min.js"></script>
+    <script src="./js/jquery1_8_17.min.js"></script>
+    <script src="./js/jquery_touch.min.js"></script>
+
+
+    <script>
+        $(document).ready(() => {
+            var video = document.getElementById('video');
+            video.pause();
+
+            let dropped = 0;
+            $('.draggable').draggable({ revert: true });
+
+            $('#droptarget').droppable({
+                drop: function( event, ui ) {
+                    ui.draggable.remove();
+                    dropped++;
+                    if (dropped === 5) {
+                        setTimeout(()=>{
+                            $('.screen-1').fadeOut(1000);
+                            video.play();
+                        },100)
+                    }
+                }
+            });
+
+            function CalculateTime(_index) {
+                let startTime = 0;
+                setInterval(() => {
+                    startTime++;
+                    console.log("You waited: " + startTime + " seconds");
+                }, 1000);
+            }
+            CalculateTime();
+        });
+
+        </script>
+    
+</body>
+</html>
+
+
