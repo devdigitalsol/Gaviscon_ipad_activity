@@ -6,8 +6,7 @@
     <title>Gavison Ipad Activity</title>
     <link rel="stylesheet" href="./css/app.css">
 </head>
-<embed>
-    
+<body>
     <div class="screen screen-1">
         <div class="group1">
             <img src="./assets/oldbottlepack.png" alt="stand"  id="droptarget"  class="bottle">
@@ -83,7 +82,6 @@
                 let startTime = 0;
                 setInterval(() => {
                     startTime++;
-                    // console.log("You waited: " + startTime + " seconds");
                 }, 1000);
             }
             CalculateTime();
@@ -96,13 +94,9 @@
                         }
                     }, { once: true })
                 })
-            });
-
-            
+            }); 
         });
-
         </script>
-    
 </body>
 </html>
 
