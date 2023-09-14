@@ -6,7 +6,8 @@
     <title>Gavison Ipad Activity</title>
     <link rel="stylesheet" href="./css/app.css">
 </head>
-<body>
+<embed>
+    
     <div class="screen screen-1">
         <div class="group1">
             <img src="./assets/oldbottlepack.png" alt="stand"  id="droptarget"  class="bottle">
@@ -22,8 +23,9 @@
             <img src="./assets/circle3.png" alt=""  class="draggable circle3">
             <img src="./assets/circle4.png" alt=""  class="draggable  circle4">
             <img src="./assets/circle5.png" alt=""  class="draggable circle5">  
-        </div>  
+        </div> 
     </div>
+    
 
     <div class="screen screen-2">
         <video id="video" width="1280">
@@ -31,24 +33,43 @@
             Your browser does not support HTML5 video.
         </video>
     </div>
+    <audio id="bgAudio" loop>
+        <source src="./assets/back_audio.mpeg" type="audio/mpeg">
+        Your browser does not support the audio element.
+      </audio>
 
+    <audio id="audio1" controls hidden >
+        <source src="./assets/audio1.mpeg" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
     <script src="./js/jquery1_7_1.min.js"></script>
     <script src="./js/jquery1_8_17.min.js"></script>
     <script src="./js/jquery_touch.min.js"></script>
 
-
-    <script>
+    <script>     
         $(document).ready(() => {
             var video = document.getElementById('video');
             video.pause();
 
+            var bgAudio = document.getElementById("bgAudio"); 
+
             let dropped = 0;
-            $('.draggable').draggable({ revert: true });
+            $('.draggable').draggable({ revert: true,
+                start: function() {
+                    if (bgAudio.paused) {
+                        setTimeout(()=>{
+                            bgAudio.play();
+                        },0)
+                        
+                    }
+                }
+            });
 
             $('#droptarget').droppable({
                 drop: function( event, ui ) {
                     ui.draggable.remove();
                     dropped++;
+                    audio1.play();
                     if (dropped === 5) {
                         setTimeout(()=>{
                             $('.screen-1').fadeOut(1000);
@@ -62,10 +83,22 @@
                 let startTime = 0;
                 setInterval(() => {
                     startTime++;
-                    console.log("You waited: " + startTime + " seconds");
+                    // console.log("You waited: " + startTime + " seconds");
                 }, 1000);
             }
             CalculateTime();
+
+            bgAudio.addEventListener("canplaythrough", () => {
+                bgAudio.play().catch(e => {
+                    window.addEventListener('click', () => {
+                        if (bgAudio.paused) {
+                            bgAudio.play();
+                        }
+                    }, { once: true })
+                })
+            });
+
+            
         });
 
         </script>
