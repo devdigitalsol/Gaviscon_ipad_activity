@@ -72,7 +72,9 @@
                     if (dropped === 5) {
                         setTimeout(()=>{
                             $('.screen-1').fadeOut(1000);
+                            bgAudio.pause();
                             video.play();
+
                         },100)
                     }
                 }
@@ -82,6 +84,7 @@
                 let startTime = 0;
                 setInterval(() => {
                     startTime++;
+                    console.log("startTimer",startTime)
                 }, 1000);
             }
             CalculateTime();
